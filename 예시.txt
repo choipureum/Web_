@@ -1,0 +1,55 @@
+DROP TABLE userTest;
+CREATE TABLE userTest (
+    idx NUMBER CONSTRAINT PK_userTest PRIMARY KEY,
+    userid VARCHAR2(50),
+    name VARCHAR2(100)
+);
+
+DROP SEQUENCE userTest_SQ;
+CREATE SEQUENCE userTest_SQ;
+
+DELETE userTest;
+
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user1','유저1');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user2','유저2');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user3','유저3');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user4','유저4');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user5','유저5');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user6','유저6');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user7','유저7');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user8','유저8');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user9','유저9');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user10','유저10');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user11','유저11');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user12','유저12');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user13','유저13');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user14','유저14');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user15','유저15');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user16','유저16');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user17','유저17');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user18','유저18');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user19','유저19');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user20','유저20');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user21','유저21');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user22','유저22');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user23','유저23');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user24','유저24');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user25','유저25');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user26','유저26');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user27','유저27');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user28','유저28');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user29','유저29');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user30','유저30');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user31','유저31');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user32','유저32');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user33','유저33');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user34','유저34');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user35','유저35');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user36','유저36');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user37','유저37');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user38','유저38');
+INSERT INTO userTest( idx, userid, name ) VALUES (userTest_SQ.nextval,'user39','유저39');
+
+commit;
+
+SELECT * FROM userTest;
