@@ -32,10 +32,26 @@ td:hover {
 <h1>EMP 리스트</h1>
 <hr>
 <table>
+<tr>
+	<th>사원번호</th>
+	<th>사원이름</th>
+	<th>직무</th>
+	<th>매니저</th>
+	<th>입사날짜</th>
+	<th>급여</th>
+	<th>상여금</th>
+	<th>부서번호</th>
+</tr>
 <%	for(int i=0; i<eList.size(); i++) { %>
 <tr>
-	<td><%=eList.get(i).getEmpno() %></td> 
-	<td><%=eList.get(i).getEname() %></td>
+	<td><%=eList.get(i).getEmpno() %></td>
+	 
+	<td>
+		<a href="/emp/detail?eno=<%=eList.get(i).getEmpno() %>">
+			<%=eList.get(i).getEname() %>
+		</a>
+	</td>
+	
 	<td><%=eList.get(i).getJob() %></td>
 	<td><%=eList.get(i).getMgr() %></td>
 	<td><%=eList.get(i).getHiredate() %></td>
@@ -46,6 +62,12 @@ td:hover {
 <%	} %>
 </table>
 
+<br>
+<button onclick="location.href='/emp/insert'">사원 추가</button>
+
 </body>
 </html>
+
+
+
 
