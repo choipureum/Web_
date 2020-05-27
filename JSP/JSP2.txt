@@ -1,0 +1,186 @@
+< JSP 지시자 >
+	
+ <%@ 지시자종류  속성종류1="값1" 속성종류="값2"....%>
+ 
+< JSP 지시자의 종류 >
+
+ - page (제일많이사용) : JSP페이지의 전반적인 환경설정	<%@ page~~%>
+ - include : 다른 파일(JSP)의 내용을 JSP페이지 내에 삽입할 때 사용 <%@ include~~%>
+ - taglib : 태그 라이브러리 기능을 사용할 수 있도록 설정(활성화) <%@ taglib~~%>
+ 
+< include 지시자 >
+ - 다른 JSP페이지의 내용이나 HTML 문서를 삽입할때 사용
+ - file 속성이 유일함
+
+   <%@ include file = "파일경로" %> 
+	- 헤더는 jquery문이 있는 헤더와 없는 헤더가 있어야 한다.(두개가있으면 충돌남)
+
+< taglib 지시자 >
+ - 지정된 태그 라이브러리를 활성화 시키는 태그
+ ** 사용자 정의 태그(커스텀 태그, Custon Tag)
+	표준 태그 이외의 사용자가 만들어낸 비표준 태그
+
+ ** 태그 라이브러리
+	사용자 정의 태그를 모아 일종의 규칙(문법)을 부여한 것
+
+ ** JSTL (JSP Standard Tag Library)
+	커스텀 태그 중 많이 사용되는 것을 모아서 규약(문법)을 부여한 것
+	JSP 기능을 확장시켜준다
+	편의성이 제공된다
+	반복문,논리판단(제어문),DB처리, 문자열처리, XML관련 처리 등을 쉽게 수행할 수 있다.
+
+ < page 지시자 속성 >
+
+ - language 
+	JSP페이지에서 사용할 서버사이드스크립트의 언어를 지정함
+	스크립트릿(Scriptlet)에서 사용하는 언어의 형태를 지정하는 속성
+	기본값, 사용가능한 값 : java
+	
+ - contentType
+	JSP페이지에서 응답 데이터가 생성되는 형식을 지정하는 속성
+	MIME타입을 사용한다
+		
+	** MIME타입(Multipurpose Internet Mail Extension)
+	전송된 문서(자원)의 형식을 상대방에게 알려주기 위해 사용되는 표현법
+	원래 이메일에서 사용하던 방법이다
+
+	웹문서 (응답데이터)의 올바른 해석법을 브라우저에게 알리기 위해
+	Content-Type으로 설정할 때 사용한다
+	
+	"text/html; charset=UTF-8"
+		text기반의 html문서, 한글 인코딩을  UTF-8로 인식한다
+	"text/plain"
+		순수한 텍스트, 단순 텍스트
+	"image/jpeg"
+	"image/png"
+	...	이미지파일, 이미지압축형식에 따라, JPEG,PNG 등등 설정
+
+	"application/octet-stream"
+		이전파일
+		파일을 전송할 때 기본으로 사용되는 값
+	"application/json"
+		json형식의 데이터
+ 
+ - pageEncoding
+	JSP파일의  작성된 인코딩 방식
+	JSP파일자체의 한글 인코딩 방식을 설정할 때 사용한다. 
+
+ - import
+	JSP페이지에서 사용할 클래스를 import하는 속성
+
+	<%@ page import="java.util.Date"%>  : ctrl+space로 대부분 자동완성으로 만든다
+ - extends
+       JSP 페이지의 상위클래스를 지정하는 속성
+       
+       건들면 안됨
+       서블릿 컨테이너가 알아서 넣는다
+       
+       <%@ page extends="org.apache.jasper.runtime.HttpJspBase" %>
+       
+ - session 
+      JSP 페이지에서 HttpSession 객체를 사용하지말지 결정하는 속성
+      true/false로 값을 지정한다 ( 기본값 : true )
+      
+      ** HttpSession 클래스 : 자바에서 세션 정보 관련 클래스
+      ** 세션 : 웹 서버가 클라이언트들을 구분하기 위한 식별 방식( 기술 )
+         ( 로그인 서비스에 사용된다 )
+
+      
+ - buffer
+      서버 - 클라이언트 간 연결된 출력스트림의 버퍼 크기 설정 속성
+      
+      기본 8kb
+      none 설정 시 버퍼 사용하지 않음
+      
+      <%@ page buffer = "8kb" %>
+      
+ - autoFlush
+      버퍼 자동 비우기(flush)
+      
+      자동으로 응답출력스트림의 flush() 를 호출한다
+      
+      ture/false값으로 설정 (기본값: true)
+      
+      ** autoFlush 를 flash로 지정하면 buffer를 none으로 설정할 수 없음
+
+ - isThreadSafe
+	JSP페이즈를 Thread-Safe하게 동작하도록 설정하는 속성
+	true/false로 설정한다(기본값:false)-건들필요없음
+
+ - errorPage
+	JSP에서 에러가 발생하면 이동될 페이지를 지정하는 속성
+
+ - isErrorPage
+	해당 JSP를 에러를 처리하는 페이지로 지정하는 속성
+	exception 객체를 다룰 수 있도록 해준다
+	true/false로 지정한다(기본값:false)
+
+< JSP 내장 객체(Built-in Object) >
+
+ - JSP 페이지에서 객체 생성없이 바로 사용할 수 있는 객체들
+ - JSP->Servlet 변환될 때 자동으로 생성되는 객체들
+ - Servlet/JSP 컨테이너가 생성해준다
+ 
+< 내장 객체의 종류 >
+
+ - 입출력(요청, 응답) 관련 객체
+	request : HTTP 요청 정보 객체(HttpServletRequest)
+	response : HTTP 응답 정보 객체(HttpServletResponse)
+	out : 응답 객체 출력 스트림(response.getWriter())
+
+ - 서블릿 관련 객체
+	page : 서블릿으로 변환된 객체
+		(JSP입장에서 보면 나중에 서블릿으로 변환될 자기 자신에 대한 객체)
+	config : 서블릿 정보를 전달하고 있는 객체
+
+**-------중요--------
+ - 정보 전달(공유) 객체
+	pageContext : page Scope 영역에 대한 정보 객체
+	request : request Scope 영역에 대한 정보 객체
+	session : session Scope 영역에 대한 정보 객체
+	application : application Scope 영역에 대한 정보 객체
+
+	** 컨텍스트 영역의 스코프(Scope, 유효범위) 
+		page, request, session, application
+	
+ - 예외 처리 관련 객체
+	exception
+		JSP페이지에서 예외를 처리할 수 있게 사용되는 객체
+		page지시자의 isErrorPage속성을 true로 설정해야 사용가능
+		false로 설정하면 서블릿에서 아예 생성하지 않는다
+
+
+< 컨텍스트, Context >
+
+ - 단어 문맥, 전후사정이라는 뜻
+ - 프로그램에서는 전반적인 설정값, 속성값 등을 표현하는 용어
+ - 프로그램과 관련되어서 메모리에 로드된 모든 요소
+
+< 컨텍스트영역의 유효범위(Scope) > 
+ - 웹 어플리케이션의 정보(변수)가 영향을 미치는 범위
+ - 사용할 수 있는 영역
+ 
+ - page 영역
+	하나의 JSP를 처리하는 동안 유지되는 영역
+	
+ - request 영역
+	하나의 요청(Request)을 처리하는 동안 유지되는 영역
+ 	(HTTP Request(요청)이 처리되어 HTTP Response(응답)이 이루어질 때까지)
+	
+	request  내장객체를 이용하여 컨텍스트영역의 정보를 다룬다
+
+- session 영역
+	연결된 하나의 클라이언트(브라우저)에게 서비스하는 동안 유지되는 영역
+	(로그인 정보등을 클라이언트가 유지되는 동안 유지시켜야함 -
+	request 영역에 저장시킬시 페이지 새로고침시 날아감)
+	같은 클라이언트라면 요청이 새로 발생해도 유지되는 영역
+
+	세션을 이용해서 로그인 정보를 기록할 수 있다 
+
+ - application 영역
+	동일한 어플리케이션이 구동되는 동안 유지되는 영역
+	톰캣 서버가 켜져서 꺼질때 까지 유지
+	application 객체를 이용한다
+	
+	
+
