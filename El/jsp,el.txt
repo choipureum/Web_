@@ -1,0 +1,179 @@
++ JSP 액션 태그, ActionTag 
+
+ - JSP의 문법 요소 중 하나
+ - JSP페이지에서 특정 동작을 수행하도록 만든 태그
+ - 페이지와 페이지 사이의 제어, 이동 등의 기능을 제공한다
+
+++형식 
+	<jsp:수행명령 속성="속성값"></jsp:수행명령>
+
++ <jsp:useBean id="bean변수명" class="클래스명" [scope="스코프지정"]>
+  </jsp:useBean>
+   - 자바빈(JavaBean) 생성
+ - JSP페이지에서 사용할 JavaBean 객체를 생성하고 지정한 scope영역의 컨텍스트 정보로 지정한다
+ - scope영역을 지정하지 않으면 page영역에 저장됨
+ - scope : page(기본값) | request | session | application
+
++ <jsp:setProperty name="bean이름" property="필드명" [value="값설정"]/>
+  - Javabean 의 프로퍼티에 값을 설정한다
+  - DTO클래스의 setter를 실행한다
+
++ <jsp:getProperty name="bean이름" property="필드명"/>
+ - JavaBean의 프로퍼티 값을 가져온다
+ - DTO클래스의 getter를 실행한다
+ 
++ < jsp:forward page="이동할 페이지"/>
+ - JSP에서 포워딩을 수행하는 태그
+ - 전달 파라미터를 전달하고 싶다면
+	<jsp:param value="값" name="변수명"/> 을 자식 태그로 사용한다
+	ex) <jsp:forward page="userInfo.jsp">
+		<jsp:param value="alice" name="id"/>
+	     </jsp:forward>
+	    ** request.getParameter() 메소드를 이용해서 데이터를 사용할 수 있다
+
++ <jsp:include page="삽입할 페이지 URL"/>
++ <jsp:include page="삽입할 페이지 URL"/>
+	<jsp:param name="이름" value="값"/>
+  </jsp:include>
+  	- JSP페이지에 다른 페이지를 추가할 때 사용
+ 
+ ** include 지시자와  include액션은 둘 다 JSP페이지에 다른 페이지를 추가할 때 사용한다
+
+ ** include지시자와 include액션의 차이
+	include 지시자는 JSP 코드를 하나로 합치고 나서 컴파일 한다
+	include 액션은 각각의 JSP를 컴파일한 후 결과물을 합친다
+
+ 	include 지시자는 파라미터를 전달할 수 없다
+	include 액션은 파라미터를 전달할 수 있다
+
+< 페이지 이동 >
+ - 서버에서 수행하는 화면 전환
+ - 클라이언트 입장에서 보고있는 화면이 변경된다
+
++ 포워드
+ - 요청 URL을 유지한다
+ - 보여지는 문서(화면)의 내용만 바꿔치기한다(주로 JSP이용)
+	
+ - request(요청객체)가 유지된다
+ - response(응답객체)가 유지된다
+	->Request Scope의 컨텍스트 영역이 유지된다 - 중요한 점
+	->모델값을 request 영역에 저장해서  Controller ->View 전달할 수 있게 된다
+
+	ex) request.fetRequestDispatcher("페이지URL").forward(request,response)
+
+ + 리다이렉트(redirect)
+ - 요청 URL 이 변경된다
+ - 새로운 요청이 발생하면서 화면 전환이 된다
+ 
+ - 새로운 request 객체가 생성된다
+ - request 컨텍스트 영역도 새롭게 생성된다
+ - request 객체, response 객체 둘 다 유지되지 않는다
+	ex) response.sendRedirect("페이지URL");  
+
+BoardInsertController 게시글 작성 - /board/lnsert [GET]
+/board/insert.jsp 게시글 작성 폼 JSP
+BoardInsertController 작성된 정보를 DB에 저장
+
+BoardInsertController 게시글 작성 - /board/lnsert [POST]
+흰화면보다는 -포워딩은 안됨(인서트로감) board/list로 리다이렉트
+
+
++ 자바 빈, Java Bean
+ - JSP에서 사용하는 자바 클래스의 객체
+ - JSP에서 사용할 정보를 저장하는 저장소로 사용한다
+ - 자바 빈 설계 원칙(규약)에 맞게 작성한 클래스를 사용한다
+ - DTO가 자바빈을 만들 클래스로 사용된다
+ - 인스턴스화된 대상을 지칭하는 용어이다
+ 
+< 자바 빈 설계 원칙(규약) > - DTO 작성방법
+
+ - 별도의 로직을 구현하지 않는다
+ - 기능을 담고 있는 메소드를 구현하지 않는다
+ - 패키지가 반드시 있어야한다
+ - 디폴트 패키지를 사용하지 않아야한다
+
+ - public 클래스로 생성한다
+ - 멤버필드는 private 로 지정한다
+
+ - 생성자는 디폴트 생성자가 반드시 존재해야한다
+ - 매개변수가 있는 생성자는 작성하지 않는 것이 좋음
+ - 생성자를 아예 작성하지 않는 것이 좋다
+ 
+ - 캡슐화가 되어있어야한다
+ - 멤버필드에 대한 setter, getter를 구현한다
+ - setter, getter 접근제한자를 public으로 한다
+
+ - getter의 반환타입이 boolean이면 메소드명을 get대신 is로 시작할 수 있다.
+ - JSP페이지에서 등록된 자바빈의 멤버 필드를 Property(프로퍼티)로 부른다
+
+
+< POJO, Plain Old Java Object >
+ 
+ - 객체의 규모를 줄이고, 가볍고 최소화하여 개발한 객체
+ 
+ - extends 나 implements  를 최소화하여 개발한 객체
+ - 최대한  Object 만 부모로 가지도록 설계
+
+ - 애플리케이션의 규모가 너무 커지면서 개발해야하는 기능이 하나의 클래스에
+ 너무 몰려서 캡슐화된 클래스의 규모도 너무 커지게되자 나온 개념
+
+ - 목적 : 가볍고, 유연하고, 간단하게 작성된 객체를 만들자
+
+
+< EL, Expression Language, 표현 언어 >
+
+ - JSP값을 출력하는 코드를 쉽게 사용할 수 있도록 만들어진 문법
+ - 표현식(Expression Tag, <%= %>) 와 비슷한 역할을 함
+ - 주로 컨텍스트 정보를 다루거나 출력할 때 사용한다
+ - JSTL과 함께 사용하기에 적합하다 
+ 
+< EL 구문형식 >
+ - $ {}
+	ex) ${10+20} => 30이 브라우저 화면에 출력됨
+	<%=10+20 %>와 같음
+
+ < EL 연산자 >
+	- 산술 : +, -, *, /, div, %, mod
+	- 관계 : ==, eq, !=, ne, <, lt, >, gt, <=, le, >=, ge
+	- 조건 : (조건식)? data1: data2
+	- 논리 : &&, and, ||, or, !, not 
+	- null 검사 연산자 : empty 대상
+		ex) ${empty obj}
+		-> obj 객체가 null이라면 true반환
+	
+< El 내장 객체 >
+
+ - pageContext : JSP의 pageContext 내장객체와 동일
+<!-- 제일 많이 활용하는 애들-->
+ - pageScope : JSP의 page scope의 컨텍스트 정보
+	ex) ${pageScope.data} => <%=pageContext.getAttribute("data")%>
+
+- requestScope : 
+ - sessionScope
+ - applicationScope
+<!--------------------------------------------->
+ - param : 전달 파라미터에 접근할 수 있도록 한다
+	ex) ${param.data}
+		=> <%= request.getParameter("data" %>)
+
+ - paramValues : request.getParameterValues("이름")의 기능을 수행한다
+	** 같은 name 으로 여러 개의 데이터(값)을 전달했을 때 사용한다
+	ex) checkbox
+
+ - header :요청 header 정보를 사용할 수 있음
+	ex) ${header.host}
+		=> <% request.getHeader("host") %>
+ - headerValues : request.getHeaderValues("이름") 을 사용하는 것과 같다
+
+ - cookie : request.getCookie()로구한 Cookie[] 을 Map으로 사용할 수 있도록 해준다
+
+ - initParam : application.getInitParam("이름")의 정보를 사용할 수 있음
+	** 초기화 파라미터(Initaial Parameter)
+	웹 어플리케이션에서 설정된 기본 파라미터(속성값)
+	application 객체에 저장시켜둔 공용 데이터
+	모든 클라이언트가 확인할 수 있도록 미리 저장해둔 상태값
+	
+	
+ 
+
+
