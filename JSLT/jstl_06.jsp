@@ -73,7 +73,46 @@ div [id^=res]:hover {
    </div> 
 </c:forEach>
 </div>
+<hr>
 
+<% 
+   List<String> list = new ArrayList<>();
+   
+   list.add("Alice");
+   list.add("b");
+   list.add("c");
+   list.add("d");
+   list.add("e");
+
+
+
+%>
+
+<c:forEach var="iter" items="<%=list %>"
+   begin="0" end="4" step="2"
+   varStatus= "stat">
+   
+   <c:if test="${stat.first }">
+   <span style="color:red; font-size:8px;">첫번째 반복입니다</span>
+   </c:if>
+   
+   iter : ${iter}<br>
+   반복 중 현재 인덱스 : ${stat.index }<br>
+   반복 중 실행 횟수 : ${stat.count }   
+   
+   first:${stat.first }<br><%--처음 반복하는 곳이면 true 반환 --%>
+   last: ${stat.last }<br><%--마지막 반복하는 곳이면 true 반환 --%>
+   step: ${stat.step }   <br>
+
+   <%--마지막에 경계선을 제거하는 코드  --%>
+   <c:if test="${not stat.last }">
+   -------------<br>
+   </c:if>
+   
+   <c:if test="${stat.last }">
+   <span style="color:red; font-size:8px;">마지막 반복입니다</span>
+   </c:if>
+</c:forEach>
 
 
 
