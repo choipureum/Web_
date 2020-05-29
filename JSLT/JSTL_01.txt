@@ -1,0 +1,118 @@
++ JSTL, JSP Standard Tag Library
+
+ - JSP 에서 사용 가능한 표준 태그 라이브러리
+ 
+ - JSP 코드의 가독성이 좋아진다
+ - 자바코드를 작성할 상황을 최소화시켜준다
+ 
+ - 추가 라이브러리 파일이 필요하다
+ - JSP 페이지에서 taglib 지시자를 이용하여 활성화해주어야 한다
+ 
++ JSTL이 제공하는 5가지 커스텀 태그
+
+ - core
+      논리 판단(조건문), 반복문의 제어문을 지원하는 태그
+      다른 JSP호출하는 기능의 태그도 포함
+ 
+ - format
+      날짜, 숫자, 시간 데이터의 서식을 지정하는 태그
+      
+ - sql
+      데이터베이스 처리
+ 
+ - xml
+      XML문서에 대한 처리
+ 
+ - functions
+      문자열 처리 함수를 사용할 수 있게 해주는 기능
+      단독 태그로 사용하지 않고 EL과 함게 사용한다
+
+
+
+
++ JSTL taglib 지시자
+
+ - JSTL 태그라이브러리를 활성화하는 지시자가 필요하다
+ 
+ - <@ taglib prefix="접두어" uri="라이브러리 식별값" %>
+ 
+ - Core
+  <@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  
+ - Format
+  <@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+ - Sql
+  <@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+  
+ - Xml
+  <@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>  
+
+ - Functions
+  <@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
++ JSTL Core 태그 라이브러리
+
+ - out      JSP Writer를 이용한 브라우저 출력
+ 
+ <c:out value="출력값"
+        default="value 값이 null일때 출력될 값"
+        escapeXml="true | false" />
+        
+        ** escapeXml 속성
+         true - < > & " '를 문자 그대로 출력( 기본값 )
+         false - 
+
+ - set 	JSP변수 설정, 등록(컨텍스트 영역)
+	<c:set var="변수명" value="값" [scope="영역"]/>
+	<c:set var="변수명" [scope="영역"]/>값 </c:set>
+
+		** scope : page(기본값) | request | session | application
+
+	** var 속성 대신 target을 사용해서 객체의 내부 프로퍼티의 값을 설정할 수 있다
+	(객체, Map)
+ 
+ - remove 	변수제거
+	<c:remove var="변수명" [scope="영역"] />
+	** scope 를 지정하지 않으면 모든 컨텍스트 영역의 변수를 제거한다
+
+ - if		조건문(1번사용)
+	<c:if test="조건식">
+		//조건식 결과가 true일 때 수행하는 코드
+	</c:if>
+	<c:if test="조건식" var="결과저장변수" scope="영역">
+	//var로 지정된 변수에 true또는 false가 저장된다
+	//다른 컨텍스트영역과 수행결과를 공유할 때 사용한다
+	
+	//조건식 결과가 true일 떼 수행하는 코드
+	</c:if>
+ - choose 	다중조건문(else fi, else의 기능)
+	<c:choose>
+		<c:when test="조건1">
+			<%--조건1이 true일 때 수행하는 영역 --%>
+		</c:when>
+		<c:when test="조건1">
+			<%--조건1이 true일 때 수행하는 영역 --%>
+		</c:when>
+		...
+		<c:otherwise>
+			<%-- 모든 조건이 false 일때 수행 --%>
+			<$-- 생략 가능함 --%>
+		</c:otherwise>
+	</c:choose>
+
++forEach   반복문 또는 컬렉션이나 맵의 Interator
+   <c:forEach var=”변수” 
+      begin=”시작값” end=”끝값” step=”증가값”
+      items=”반복될객체”
+      varStatus=”반복정보객체”>
+      // ${var } 변수를 이용한 코드
+   </c:forEach>
+
+forTokens   문자열을 split한 결과배열의 토큰값으로 반복
+<c:forTokens var=”변수” litems=”원본문자열” delims=”구분문자”>
+      ${변수}
+</c:forTokens>
+** items의 문자열을 delims로 split하여 결과를 순서대로 var에 지정한 변수에 담아 반복하는 태그
+
