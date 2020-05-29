@@ -35,7 +35,7 @@
 			<c:when test="${item eq jpg }"></c:when>
 			<c:when test="${item eq png }"></c:when>
 		</c:choose>
-
+		</c:if>
 	</c:forTokens>
 	
 </body>
