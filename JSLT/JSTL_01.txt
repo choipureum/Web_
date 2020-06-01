@@ -116,3 +116,103 @@ forTokens   문자열을 split한 결과배열의 토큰값으로 반복
 </c:forTokens>
 ** items의 문자열을 delims로 split하여 결과를 순서대로 var에 지정한 변수에 담아 반복하는 태그
 
+- import		자원삽입
+	<c:import url="삽입할 페이지"/>
+	<c:import url="삽입할 페이지"/>
+		<c:param name="키" value="값"/>
+	</c:import>
+
+	** <jsp:include>와 같은기능이다
+	** 파라미터를 전달할 수 있다
+
+
+- redirect(쓸일 없음)	페이지 이동(리다이렉션)
+	<c:redirect url="리다이렉트 페이지"/>
+	<c:redirect url="리다이렉트 페이지"/>
+		<c:param name="키" value="값"/>
+	</c:redirect>
+	
+	** 자바스크립트를 이용한 location.href와 같은 결과
+	** location.href는 클라이언트에서 동작
+	** <c:redirect>는 서버에서 동작
+	
+	** 우리는 JSP에서 곧바로 리다이렉트하는 일은 거의 없을 것(안씀)
+
+- catch	예외처리
+
+	<c:catch var="변수">
+		//예외발생 가능한 코드
+	</c:catch>
+
+	**발생한 예외객체를 변수에 저장한다
+
+< JSTL Format 태그 >
+
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+ - formatNumber
+	문다열을 숫자로 서식화하는 태그
+
+	<fmt:formatNumber
+		value="값"
+		type="숫자형식"
+		pattern="서식패턴지정"
+		currencyCode="통화코드"
+		currencySymbol="통화심볼"($,\같은것)
+		groupingUsed="true|false"
+
+		var="변수"	
+		scope="컨텍스트영역"/>
+
+	type :	number(기본값) | currency | percent (단순숫자|통화|퍼센트)
+		** percent는 100배 수치변화가 있으니 조심할 것
+		** 0.5 == 50%로 출력됨
+
+	pattern: 	데이터의 서식, java.text.DecimalFormat의 패턴(서식) 사용
+		#: 유효숫자가 존재하면 숫자를 표시한다
+		0: 자리수만큼 0으로 채운다
+	
+	currencyCode : 	통화코드,ISO에서 4217에서 지정한 표준을 사용함(KRW,대한민국원)
+	currencySymbol : 	통화심볼 저장
+
+	groupingUsed: 	false - 숫자를 구분하는 ,(comma) 제거(자릿수 구분자 제거)
+	
+ - formatDate
+	java.util.Date 데이터를 날짜형식 서식화하는 태그
+	
+	<fmt:formatDate
+		value="값"
+		type="날짜시간형식"
+		dateStyle="날짜표현방식"
+		timeStyle="시간표현방식"
+
+		pattern="패턴지정문자"
+		timeZome="시간대"
+		var="변수"
+		scope="영역"	/>
+
+	type :	date(기본값) | time | both
+	
+	dateStyle, timeStyle
+		default | short | medium | long | full 
+
+	pattern :  	yy,MM,dd,hh,mm,ss
+			a,HH,hh,kk,z,Z,X,S
+
+			** MM : 월(대문자M)
+			** mm : 분(소문자m)
+
+			** HH : 24시간 hour(자정이 00시)
+			** hh : 12시간 hour(자정이 12시)
+			---------------아래는 안씀(안익숙)--------------
+			** KK : 12시간 hour(자정이 00시)
+			** kk : 24시간 hour(자정이 24시)
+
+			** S : 밀리초
+			** ss : 초
+	
+			** a : am/pm
+
+			** z,Z,X : time zone(시간대)
+
+
