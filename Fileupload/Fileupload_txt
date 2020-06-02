@@ -18,6 +18,30 @@
 	** 2진데이터 형식으로 데이터를 전송한다
 	
 
+< Commons Fileupload 라이브러리 다운로드 >
 
+ 1. http://www.apache.org/
+ 2. Projects 링크 클릭 - Project Lists 선택
+ 3. Commons 링크 클릭 -> Fileupload 링크 클릭 -> Binaries에서 .zip파일 다운로드 -> 압축해제 -> .jar 파일 사용
+
+< Commons-IO 라이브러리 다운받기 >
+  - commons-fileupload 라이브러리는 commons-io 라이브러리에 의존적이다
+  - 두라이브러리 파일이 같이 있어야 동작함
+  
+  1. www.apache.org 접속
+  
+  2. Project 메뉴 - Project Lists 클릭
+  
+  3. Commons 링크 찾아서 클릭
+  
+  4. IO 링크 찾아서 클릭
+  
+  5. 왼쪽 메뉴에서 Download 링크 클릭
+  
+  6. Binaries 에서 .zip 파일 다운
+  
+  7. 압축해제
+  
+  8. commons-io-2.7.jar 파일 사용
 
 
