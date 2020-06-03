@@ -73,7 +73,7 @@ public class JDBCTemplate {
 	}
 	public static void close(PreparedStatement ps) {
 		try {
-			if(ps!=null &&!ps.isClosed()) conn.close();
+			if(ps!=null &&!ps.isClosed()) ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,13 +81,14 @@ public class JDBCTemplate {
 	}
 	public static void close(ResultSet rs) {
 		try {
-			if(rs!=null && !rs.isClosed()) conn.close();
+			if(rs!=null && !rs.isClosed()) rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	
 	}
 }
+
 
 
 
