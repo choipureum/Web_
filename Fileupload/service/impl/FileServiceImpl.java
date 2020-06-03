@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
@@ -16,10 +17,15 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import dao.face.FileDao;
+import dao.impl.FileDaoImpl;
+import dbutil.JDBCTemplate;
 import dto.ParamData;
+import dto.UploadFile;
 import service.face.FileService;
 
 public class FileServiceImpl implements FileService{
+	private FileDao fileDao = new FileDaoImpl();
 	
 	@Override
 	public void fileupload(HttpServletRequest req, HttpServletResponse resp) {
@@ -173,6 +179,16 @@ public class FileServiceImpl implements FileService{
 				String stored = rename+"."+ext;
 				System.out.println("[TEST] sotred file name : "+ stored);
 				
+				//Db에 업로드된 파일에 대한 정보 기록하기
+				UploadFile uploadFile = new UploadFile();
+				
+				uploadFile.setOriginName(origin);
+				uploadFile.setStoredName(stored);
+				System.out.println(uploadFile);
+				
+				// DB에 기록하기
+				fileDao.insert(uploadFile);
+				
 				//실제 업로드 파일
 				File up = new File(context.getRealPath("upload"), stored); //업로드될 폴더, 변환된  저장파일의 이름
 				
@@ -190,8 +206,31 @@ public class FileServiceImpl implements FileService{
 		System.out.println(paramData);
 		
 	}
+	@Override
+	public List<UploadFile> list() {
+		
+		return fileDao.selectAll();
+	}
+	@Override
+	public int insertFile(UploadFile up) {
+		//DB연결객체
+		   Connection conn = JDBCTemplate.getConnection();
+		   
+		   //DAO를 통해 insert 수행
+		   int result = fileDao.insertFile(conn, up);
+		   
+		   if(result > 0) { //insert 성공
+		      JDBCTemplate.commit(conn);
+		      
+		   } else { //insert 실패
+		      JDBCTemplate.rollback(conn);
+		      
+		   }
+		   
+		   //insert 수행 결과값(int) 반환
+		   return result;
+	}
 }
-
 
 
 
