@@ -44,4 +44,56 @@
   
   8. commons-io-2.7.jar 파일 사용
 
+< COS 라이브러리 다운로드 >
+
+ - http://www.servlets.com
+ - 왼쪽메뉴에서  com.oreilly.servlet 클릭
+ - 밑에 cos-20.08.zip다운로드
+
+< cos 라이브러리 파일 업로드 >
+
+ - com.oreilly.servlet.MultipartRequest 객체를 이용한다
+ - 객체의 생성자를 통해서 업로드 설정을 한다
+ 
+< MultipartRequest 클래스의 생성자 >
+
+//매개변수가 많음
+ - public MultipartRequest(
+	HttpServletRequest request, 		//요청객체
+	String saveDirectory, 		// 파일 저장위치
+	int maxPostSize. 			//업로드 제한사이즈
+	String encoding,			// 인코딩
+	FileRenamePolicy policy 		//중복된 파일 이름 처리할 정책	
+	
+	) throws IOException
+ 
+ < Multipartrequest 의 주요 메소드 >
+
+ - String getParameter(String name);
+	요청 파라미터 얻기
+ - Enumeration getParameterNames();
+	요청 파라미터들의  name들을 열거체(enumeration) 로 얻기
+ - String [] getParameterValues();
+	name으로 전달된 파라미터값들을 문자열 배열로 반환 
+
+ - File getFiles(String name);
+	업로드된 파일 객체 얻기
+ - Enumeration getFileNames(); 
+	파일들의 name들을 열거체로 반환하기
+ - String getFilesystemName(String name);
+	업로드된 파일 이름(저장된이름, storedName)
+ - String getOriginamFileName(String name);
+	원본 파일 이름(originName)
+ - String getContentType(String name);
+	업로드된 파일의 형식( MIME 타입)
+
+
+
+
+
+
+
+
+
+
 
