@@ -29,7 +29,6 @@ public class BoardWriteServlet extends HttpServlet {
 	private BoardService boardService = new BoardService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-
 			throws ServletException, IOException {
 
 			// 게시글 원글 등록 처리용 컨트롤러
