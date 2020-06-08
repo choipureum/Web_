@@ -90,4 +90,21 @@
 	** 클라이언트가 종료되면 세션 정보가 지워진다(자동) 
 	** 아파치 톰캣 서버는 기본으로 JSESSIONID라는 이름으로 
 	SESSION ID  를 발급 함
+	
+	< get Session() >
+	- HttpSession 객체가 이미 존재할 경우 현재 HttpSession 객체를 반환
+	- HttpSession 객체가 존재하지 않으면(첫번째 접속이면) 새로운 객체를 만들어서 반환
+
+< getSession(boolean create) >
+	- true : getSession()과 동일한 동작(없으면 만들기)
+ 	- false : HttpSession 객체가 존재하지 않으면 null반환(없으면 새로 만들지 않는다)
+	
+	ex) BoardWriteController 개발중.. (게시글 작성 컨트롤러)
+		if(req.getSession(false) ==null){
+			//세션 정보가 없으면 게시글 작성하지 못하도록 막기
+			resp.sendRedirect("/board/main"); 
+			//서블릿 코드(자바코드) 중단시키기
+			return;
+			}
+
 
